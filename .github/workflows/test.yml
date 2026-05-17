@@ -1,6 +1,6 @@
 name: test
 
-# pytest suite for leakguard.
+# pytest suite for textleaks.
 #
 # All run: blocks use no github.event.* inputs (safe pattern).
 

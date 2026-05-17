@@ -1,4 +1,4 @@
-"""leakguard CLI."""
+"""textleaks CLI."""
 
 import argparse
 import json
@@ -6,17 +6,17 @@ import sys
 from importlib import resources
 from pathlib import Path
 
-from leakguard import __version__
-from leakguard.catalog import load_with_overrides
-from leakguard.scanner import scan_paths
+from textleaks import __version__
+from textleaks.catalog import load_with_overrides
+from textleaks.scanner import scan_paths
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog="leakguard",
+        prog="textleaks",
         description="Pre-publish scanner for narrative-style internal-context leaks.",
     )
-    parser.add_argument("--version", action="version", version=f"leakguard {__version__}")
+    parser.add_argument("--version", action="version", version=f"textleaks {__version__}")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     scan_p = sub.add_parser("scan", help="Scan files or directories for narrative leaks")
@@ -24,8 +24,8 @@ def main(argv: list[str] | None = None) -> int:
     scan_p.add_argument(
         "--catalog",
         type=Path,
-        default=Path("leakguard.yaml"),
-        help="User catalog path (default: ./leakguard.yaml; merged on top of starter)",
+        default=Path("textleaks.yaml"),
+        help="User catalog path (default: ./textleaks.yaml; merged on top of starter)",
     )
     scan_p.add_argument(
         "--exclude",
@@ -37,11 +37,11 @@ def main(argv: list[str] | None = None) -> int:
     scan_p.add_argument("--format", choices=["text", "json"], default="text")
     scan_p.add_argument("--quiet", action="store_true", help="Suppress summary line")
 
-    init_p = sub.add_parser("init", help="Write a starter leakguard.yaml into the current directory")
-    init_p.add_argument("--force", action="store_true", help="Overwrite existing leakguard.yaml")
+    init_p = sub.add_parser("init", help="Write a starter textleaks.yaml into the current directory")
+    init_p.add_argument("--force", action="store_true", help="Overwrite existing textleaks.yaml")
 
     list_p = sub.add_parser("list-classes", help="Print the classes in the active catalog")
-    list_p.add_argument("--catalog", type=Path, default=Path("leakguard.yaml"))
+    list_p.add_argument("--catalog", type=Path, default=Path("textleaks.yaml"))
 
     args = parser.parse_args(argv)
 
@@ -87,11 +87,11 @@ def _cmd_scan(args) -> int:
 
 
 def _cmd_init(args) -> int:
-    target = Path("leakguard.yaml")
+    target = Path("textleaks.yaml")
     if target.exists() and not args.force:
         print(f"{target} already exists. Use --force to overwrite.", file=sys.stderr)
         return 1
-    text = resources.files("leakguard.data").joinpath("template.yaml").read_text()
+    text = resources.files("textleaks.data").joinpath("template.yaml").read_text()
     target.write_text(text)
     print(f"Wrote {target}. Edit it to add your project's codenames and operator-private terms.")
     return 0

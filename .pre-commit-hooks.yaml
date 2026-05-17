@@ -1,7 +1,7 @@
-- id: leakguard
-  name: leakguard
+- id: textleaks
+  name: textleaks
   description: Scan for narrative-style internal-context leaks before commit
-  entry: leakguard scan
+  entry: textleaks scan
   language: python
   types: [text]
   pass_filenames: true

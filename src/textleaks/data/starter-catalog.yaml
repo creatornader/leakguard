@@ -1,14 +1,14 @@
-# leakguard starter catalog
+# textleaks starter catalog
 #
-# Generic narrative-leak patterns shipped with leakguard. These are the classes
+# Generic narrative-leak patterns shipped with textleaks. These are the classes
 # that don't require any project-specific input: they detect patterns common
 # to any operator using an AI coding agent (Claude Code, Cursor, OpenClaw, etc.)
 # to work on a private project that later flips public.
 #
 # Classes that DO need project-specific input (your cross-project codenames,
 # your operator username, your private wrapper service names) are present here
-# with empty pattern lists. Override or extend them by writing a `leakguard.yaml`
-# in your repo root. Run `leakguard init` to scaffold one.
+# with empty pattern lists. Override or extend them by writing a `textleaks.yaml`
+# in your repo root. Run `textleaks init` to scaffold one.
 #
 # See docs/leak-classes.md for the full taxonomy.
 
@@ -22,7 +22,7 @@ classes:
     description: >
       Codenames of OTHER projects you maintain that should not appear in this
       public repo. Ship NO defaults here. Add your own per-project codenames
-      to your leakguard.yaml. Example: if you maintain projects named "atrib"
+      to your textleaks.yaml. Example: if you maintain projects named "atrib"
       and "sahbi" and you're publishing the "atrib" repo, list "sahbi" here.
     patterns: []
     user_extensible: true

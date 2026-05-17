@@ -3,9 +3,9 @@ requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "leakguard"
-version = "0.1.1"
-description = "Pre-publish scanner for narrative-style internal-context leaks in public repos."
+name = "textleaks"
+version = "0.2.0"
+description = "Pre-publish scanner for narrative-style internal-context leaks in public repos. The text-content companion to gitleaks."
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.9"
@@ -29,12 +29,12 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/creatornader/leakguard"
-Repository = "https://github.com/creatornader/leakguard"
-Issues = "https://github.com/creatornader/leakguard/issues"
+Homepage = "https://github.com/creatornader/textleaks"
+Repository = "https://github.com/creatornader/textleaks"
+Issues = "https://github.com/creatornader/textleaks/issues"
 
 [project.scripts]
-leakguard = "leakguard.cli:main"
+textleaks = "textleaks.cli:main"
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
@@ -43,4 +43,4 @@ dev = ["pytest>=7"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-"leakguard.data" = ["*.yaml"]
+"textleaks.data" = ["*.yaml"]

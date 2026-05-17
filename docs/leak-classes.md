@@ -122,7 +122,7 @@ Each class below: what it is, why it leaks, an example, and the prevention rule 
 
 **Prevention**: delete and recreate the GitHub repo. Or file a GitHub Support GC ticket. Force-push alone is insufficient.
 
-leakguard does not check this today. Planned for v0.2 as `leakguard audit-refs`.
+textleaks does not check this today. Planned for v0.2 as `textleaks audit-refs`.
 
 ### 14. GitHub issue body content from prior leak audits
 
@@ -130,7 +130,7 @@ If a cloud audit routine opens an issue when it detects a regression, the issue 
 
 **Prevention**: close and delete leak-regression issues after fixing the underlying leak. Or have the routine open issues in a private mirror repo instead.
 
-leakguard does not check this today. Planned for v0.2 as `leakguard audit-issues`.
+textleaks does not check this today. Planned for v0.2 as `textleaks audit-issues`.
 
 ### 15. Speculative cross-project ramification language
 
@@ -144,4 +144,4 @@ This taxonomy emerged from three distinct leak-cleanup waves on a real public OS
 - Wave 2: internal tooling names + GitHub PR refs surviving force-push.
 - Wave 3: internal-process **framing prose** in ADRs and code comments. Phase numbers, handoff doc references, time-of-day timestamps, agent-actor references.
 
-Wave 3 was the surprise. The patterns that caused it were the impetus for leakguard: gitleaks and trufflehog catch nothing in this class, yet the prose leaks are at least as common as credential leaks.
+Wave 3 was the surprise. The patterns that caused it were the impetus for textleaks: gitleaks and trufflehog catch nothing in this class, yet the prose leaks are at least as common as credential leaks.

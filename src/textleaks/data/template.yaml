@@ -1,10 +1,10 @@
-# Your project's leakguard config.
+# Your project's textleaks config.
 #
-# Each block below extends the same-id class in leakguard's starter catalog.
+# Each block below extends the same-id class in textleaks's starter catalog.
 # Patterns you list here are ADDED to the starter's patterns. To replace the
 # starter's patterns entirely for a class, add `replace: true` to the block.
 #
-# Run `leakguard list-classes` to see all available class ids.
+# Run `textleaks list-classes` to see all available class ids.
 
 version: 1
 

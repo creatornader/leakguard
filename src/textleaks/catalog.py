@@ -15,8 +15,8 @@ class Catalog:
 
 
 def load_starter_catalog() -> Catalog:
-    """Load the catalog shipped with leakguard."""
-    text = resources.files("leakguard.data").joinpath("starter-catalog.yaml").read_text()
+    """Load the catalog shipped with textleaks."""
+    text = resources.files("textleaks.data").joinpath("starter-catalog.yaml").read_text()
     return _parse(text)
 
 

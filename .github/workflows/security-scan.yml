@@ -1,9 +1,9 @@
 name: security-scan
 
-# Eats own dogfood: leakguard runs in its own CI via the same stack it
+# Eats own dogfood: textleaks runs in its own CI via the same stack it
 # documents for other repos. Calls the reusable workflow at
 # creatornader/oss-security-scan for typos + gitleaks + trufflehog +
-# osv-scanner. Also runs leakguard against itself via pre-commit.
+# osv-scanner. Also runs textleaks against itself via pre-commit.
 #
 # All run: blocks use no github.event.* inputs.
 
@@ -27,7 +27,7 @@ jobs:
       run-osv-scanner: ${{ github.event_name == 'schedule' }}
 
   self-scan:
-    name: leakguard scan (self-check)
+    name: textleaks scan (self-check)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -37,4 +37,4 @@ jobs:
       - name: Install
         run: pip install -e .
       - name: Scan
-        run: leakguard scan
+        run: textleaks scan

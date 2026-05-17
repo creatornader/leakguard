@@ -1,6 +1,6 @@
-# leakguard's own config.
+# textleaks's own config.
 #
-# This file makes `leakguard scan .` clean on the leakguard repo itself.
+# This file makes `textleaks scan .` clean on the textleaks repo itself.
 # All exclusions are files whose JOB is to describe or test the patterns;
 # scanning them with the very patterns they discuss is expected to fire
 # every time, and is not a real leak signal.
@@ -12,16 +12,18 @@ ignore_paths:
   - docs/leak-classes.md
   # The starter catalog itself contains the regex patterns and example prose
   # in its descriptions.
-  - src/leakguard/data/starter-catalog.yaml
+  - src/textleaks/data/starter-catalog.yaml
   # The user-fillable template includes example values.
-  - src/leakguard/data/template.yaml
+  - src/textleaks/data/template.yaml
   # Test fixtures are intentionally leaky/clean.
   - tests/fixtures/leaky.md
   - tests/fixtures/clean.md
-  # The README describes patterns when explaining what leakguard catches.
+  # The README describes patterns when explaining what textleaks catches.
   - README.md
+  # Changelog references the old name in migration notes.
+  - CHANGELOG.md
   # Build / package metadata (PKG-INFO embeds the README).
-  - src/leakguard.egg-info/**
+  - src/textleaks.egg-info/**
   - "**/*.egg-info/**"
 
 classes: []

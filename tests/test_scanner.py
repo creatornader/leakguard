@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from leakguard.catalog import load_starter_catalog, load_with_overrides
-from leakguard.scanner import scan_paths
+from textleaks.catalog import load_starter_catalog, load_with_overrides
+from textleaks.scanner import scan_paths
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -72,7 +72,7 @@ def test_load_with_overrides_returns_starter_when_no_user_file(tmp_path):
 
 
 def test_load_with_overrides_merges_ignore_paths(tmp_path):
-    user_yaml = tmp_path / "leakguard.yaml"
+    user_yaml = tmp_path / "textleaks.yaml"
     user_yaml.write_text(
         "version: 1\nignore_paths:\n  - foo/**\n  - bar.md\nclasses: []\n"
     )
@@ -82,7 +82,7 @@ def test_load_with_overrides_merges_ignore_paths(tmp_path):
 
 
 def test_override_class_omitting_name_inherits_from_base(tmp_path):
-    user_yaml = tmp_path / "leakguard.yaml"
+    user_yaml = tmp_path / "textleaks.yaml"
     user_yaml.write_text(
         "version: 1\nclasses:\n"
         "  - id: cross-project-codenames\n"
@@ -96,7 +96,7 @@ def test_override_class_omitting_name_inherits_from_base(tmp_path):
 
 
 def test_new_class_in_override_without_name_defaults_to_id(tmp_path):
-    user_yaml = tmp_path / "leakguard.yaml"
+    user_yaml = tmp_path / "textleaks.yaml"
     user_yaml.write_text(
         "version: 1\nclasses:\n"
         "  - id: my-custom-class\n"
