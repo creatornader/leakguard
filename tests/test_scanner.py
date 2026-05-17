@@ -79,3 +79,31 @@ def test_load_with_overrides_merges_ignore_paths(tmp_path):
     catalog = load_with_overrides(user_yaml)
     assert "foo/**" in catalog.ignore_paths
     assert "bar.md" in catalog.ignore_paths
+
+
+def test_override_class_omitting_name_inherits_from_base(tmp_path):
+    user_yaml = tmp_path / "leakguard.yaml"
+    user_yaml.write_text(
+        "version: 1\nclasses:\n"
+        "  - id: cross-project-codenames\n"
+        "    patterns:\n"
+        "      - myproject\n"
+    )
+    catalog = load_with_overrides(user_yaml)
+    cpc = next(c for c in catalog.classes if c["id"] == "cross-project-codenames")
+    assert cpc["name"] == "Cross-project codenames"  # inherited from base
+    assert "myproject" in cpc["patterns"]
+
+
+def test_new_class_in_override_without_name_defaults_to_id(tmp_path):
+    user_yaml = tmp_path / "leakguard.yaml"
+    user_yaml.write_text(
+        "version: 1\nclasses:\n"
+        "  - id: my-custom-class\n"
+        "    patterns:\n"
+        "      - custom-thing\n"
+    )
+    catalog = load_with_overrides(user_yaml)
+    custom = next(c for c in catalog.classes if c["id"] == "my-custom-class")
+    assert custom["name"] == "my-custom-class"
+    assert "custom-thing" in custom["patterns"]
