@@ -1,6 +1,6 @@
 # Leak classes
 
-The starter catalog ships 13 classes. Three are user-extensible (you provide the patterns); ten are generic and ship with default patterns on. Two more (GitHub PR refs after force-push, GitHub issue body content from prior leak audits) are out-of-band — they aren't file-content patterns and are tracked as v0.2 roadmap items.
+The starter catalog ships 13 classes. Three are user-extensible (you provide the patterns); ten are generic and ship with default patterns on. Two more (GitHub PR refs after force-push, GitHub issue body content from prior leak audits) are out-of-band: they aren't file-content patterns and are tracked as v0.2 roadmap items.
 
 Each class below: what it is, why it leaks, an example, and the prevention rule that makes the patterns unnecessary in well-written prose.
 
@@ -108,7 +108,7 @@ Each class below: what it is, why it leaks, an example, and the prevention rule 
 
 **What it catches**: "sanity-check session," "private staging," "leak count went from X to Y," "scrub cross-project codename references."
 
-**Why it leaks (the meta-leak)**: commit messages or docs that ANNOUNCE a scrub or describe its cleanup state are themselves leaks. The phrase "leak count went from 12 to 0" tells a public reader the repo had private state worth scrubbing — even when no individual codename remains.
+**Why it leaks (the meta-leak)**: commit messages or docs that ANNOUNCE a scrub or describe its cleanup state are themselves leaks. The phrase "leak count went from 12 to 0" tells a public reader the repo had private state worth scrubbing, even when no individual codename remains.
 
 **Prevention**: commit messages describe WHAT changed in technical terms. "Update wording in §4.6 example" not "Scrub cross-project codename references from §4.6 example."
 
@@ -142,6 +142,6 @@ This taxonomy emerged from three distinct leak-cleanup waves on a real public OS
 
 - Wave 1: literal cross-project codenames.
 - Wave 2: internal tooling names + GitHub PR refs surviving force-push.
-- Wave 3: internal-process **framing prose** in ADRs and code comments — phase numbers, handoff doc references, time-of-day timestamps, agent-actor references.
+- Wave 3: internal-process **framing prose** in ADRs and code comments. Phase numbers, handoff doc references, time-of-day timestamps, agent-actor references.
 
 Wave 3 was the surprise. The patterns that caused it were the impetus for leakguard: gitleaks and trufflehog catch nothing in this class, yet the prose leaks are at least as common as credential leaks.
