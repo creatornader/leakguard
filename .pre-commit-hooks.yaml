@@ -1,0 +1,8 @@
+- id: leakguard
+  name: leakguard
+  description: Scan for narrative-style internal-context leaks before commit
+  entry: leakguard scan
+  language: python
+  types: [text]
+  pass_filenames: true
+  require_serial: false

@@ -1,0 +1,37 @@
+# Your project's leakguard config.
+#
+# Each block below extends the same-id class in leakguard's starter catalog.
+# Patterns you list here are ADDED to the starter's patterns. To replace the
+# starter's patterns entirely for a class, add `replace: true` to the block.
+#
+# Run `leakguard list-classes` to see all available class ids.
+
+version: 1
+
+classes:
+  # Codenames of OTHER projects you maintain. If you publish project A, list
+  # codenames B, C, D here so any accidental mention of them is flagged.
+  - id: cross-project-codenames
+    patterns:
+      # - '\bmy-other-project\b'
+      # - '\bmy-internal-codename\b'
+
+  # Your operator username (or anyone else's) that might appear in stack
+  # traces, paths, or accidentally pasted shell output.
+  - id: operator-paths
+    patterns:
+      # - '\byour-username\b'
+
+  # Internal wrapper services your public code interacts with but should not
+  # name. Example: a private "X-bridge" service that translates between your
+  # public API and an internal substrate.
+  - id: private-wrapper-services
+    patterns:
+      # - '\bmy-internal-bridge\b'
+      # - '\bmy-internal-api-wrapper\b'
+
+  # Add new project-specific classes below as needed. Each entry must have:
+  #   - id: unique-id-for-this-class
+  #     name: Human-readable name
+  #     description: What this class catches
+  #     patterns: [list of regex strings]

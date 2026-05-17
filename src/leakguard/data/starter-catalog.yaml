@@ -1,0 +1,155 @@
+# leakguard starter catalog
+#
+# Generic narrative-leak patterns shipped with leakguard. These are the classes
+# that don't require any project-specific input: they detect patterns common
+# to any operator using an AI coding agent (Claude Code, Cursor, OpenClaw, etc.)
+# to work on a private project that later flips public.
+#
+# Classes that DO need project-specific input (your cross-project codenames,
+# your operator username, your private wrapper service names) are present here
+# with empty pattern lists. Override or extend them by writing a `leakguard.yaml`
+# in your repo root. Run `leakguard init` to scaffold one.
+#
+# See docs/leak-classes.md for the full taxonomy.
+
+version: 1
+
+classes:
+  # ---- User-extensible (no defaults shipped) ----
+
+  - id: cross-project-codenames
+    name: Cross-project codenames
+    description: >
+      Codenames of OTHER projects you maintain that should not appear in this
+      public repo. Ship NO defaults here. Add your own per-project codenames
+      to your leakguard.yaml. Example: if you maintain projects named "atrib"
+      and "sahbi" and you're publishing the "atrib" repo, list "sahbi" here.
+    patterns: []
+    user_extensible: true
+
+  - id: operator-paths
+    name: Operator name + path patterns
+    description: >
+      File paths that reveal the operator's local filesystem layout. The
+      defaults catch /Users/X/ and /home/X/ patterns. Add your specific
+      username if you want strict matching.
+    patterns:
+      - '/Users/[a-z][a-z0-9_-]+/'
+      - '/home/[a-z][a-z0-9_-]+/'
+    user_extensible: true
+
+  - id: private-wrapper-services
+    name: Private wrapper service names
+    description: >
+      Names of internal-only services or wrappers your public code interacts
+      with. Ship NO defaults. Add your wrapper service names (e.g. an
+      "X-bridge" or "X-internal-api") here.
+    patterns: []
+    user_extensible: true
+
+  # ---- Generic (shipped on by default) ----
+
+  - id: phase-numbering
+    name: Internal phase numbering
+    description: >
+      Implementation-plan phase numbers anchor public docs to internal
+      planning state. The pattern catches "Phase 1", "Phase-2", "Phase 6 §3",
+      and variants with various separators.
+    patterns:
+      - '[Pp]hase[-_ :.]?[0-9]'
+
+  - id: handoff-doc-names
+    name: Internal handoff or planning doc names
+    description: >
+      References to internal planning documents reveal the existence of
+      private process artifacts. Catches IMPLEMENTATION-HANDOFF and common
+      handoff-doc paths.
+    patterns:
+      - 'IMPLEMENTATION-HANDOFF'
+      - 'thoughts/shared/handoffs/'
+      - '\bhandoff doc\b'
+
+  - id: agent-memory-ids
+    name: Agent memory observation IDs
+    description: >
+      Internal IDs from agent memory systems (claude-mem, persistent memory
+      observations). Public ADRs should cite the underlying evidence, not
+      the memory ID that recorded it.
+    patterns:
+      - 'memory #[0-9]+'
+      - 'memory observation #?[0-9]+'
+      - '\bobservation #[0-9]+'
+
+  - id: time-of-day-narration
+    name: Time-of-day and day-relative narration
+    description: >
+      Time-of-day timestamps and day-relative words ("today," "tonight")
+      reveal the writer's calendar as a frame of reference. Replace with
+      "earlier" or "in a prior pass."
+    patterns:
+      - '\b[0-9]{1,2}:[0-9]{2} ?(AM|PM|am|pm)\b'
+      - '\btonight\b'
+      - '\blast night\b'
+      - '\btoday\b'
+      - '\byesterday\b'
+      - '\bearlier today\b'
+      - '\bthis morning\b'
+
+  - id: user-pushback
+    name: User-pushback narration
+    description: >
+      "The user pushed back," "the user said X" frame decisions as the
+      output of an operator/agent dialogue rather than standing on merit.
+    patterns:
+      - '\buser pushed\b'
+      - "user's pushback"
+      - '\buser said\b'
+
+  - id: agent-actor-references
+    name: Internal agent or subagent actor references
+    description: >
+      "Primary Claude," "earlier subagent," "prior subagent" reveal the
+      multi-agent investigation process. Public docs should describe
+      methodology, not which agent ran it.
+    patterns:
+      - '\bprimary Claude\b'
+      - '\bearlier subagent\b'
+      - '\bprior subagent\b'
+
+  - id: session-restart-narration
+    name: Session-restart artifacts
+    description: >
+      "After a session restart," "the session was interrupted" reveal the
+      operator's Claude Code / Cursor session boundaries.
+    patterns:
+      - '\bsession restart\b'
+      - 'session was interrupted'
+      - 'session was paused'
+
+  - id: session-state-framing
+    name: In-this-commit or in-this-session framing
+    description: >
+      Self-references like "shipped in this commit," "earlier in this
+      session," "next session" frame the doc from inside an ongoing
+      operator workflow.
+    patterns:
+      - '\bin this commit\b'
+      - 'earlier in this session'
+      - '\bin this session\b'
+      - '\bnext session\b'
+      - '\bcurrent session\b'
+
+  - id: strategic-process-framing
+    name: Strategic-process framing and scrub-cleanup language
+    description: >
+      Sanity-check sessions, private staging references, leak counts, and
+      scrub-cleanup language announce internal-process or cleanup state.
+      The act of describing the cleanup is itself a meta-leak.
+    patterns:
+      - '\bsanity-check\b'
+      - 'sanity check session'
+      - '\bprivate staging\b'
+      - '\bleak count\b'
+      - 'scrub cross-project'
+      - 'internal-path reference'
+      - '\bleaked to production\b'
